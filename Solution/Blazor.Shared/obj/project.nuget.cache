@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "0GyHzQEWH6QYbS033f336ly6JuAfk8Gz/H9Yr6gxg6DLg+uqwctfnSG/gn7wm53Rc5y+YMrkwAY0+swB5RDwMg==",
+  "success": true,
+  "projectFilePath": "E:\\NetCore3.1Cursos\\EntrevistaDemoBlazor\\Solution\\Blazor.Shared\\Blazor.Shared.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ANTHONY\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

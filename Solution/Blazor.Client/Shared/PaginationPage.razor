@@ -1,0 +1,88 @@
+﻿<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        @foreach (var pag in pages)
+        {
+            <li @onclick="@(() => InternalSelectedPage(pag))"
+                style="cursor: pointer;"
+                class="page-item @(pag.Enabled ? null : "disabled") @(pag.Active ? "active" : null)">
+                <span class="page-link" href="#">@pag.Text</span>
+            </li>
+        }
+    </ul>
+</nav>
+
+@code {
+    [Parameter] public int ActualPage { get; set; } = 1;
+    [Parameter] public int totalPages { get; set; }
+    [Parameter] public int Radio { get; set; } = 3;
+    [Parameter] public EventCallback<int> SelectedPage { get; set; }
+    List<PagesModel> pages = new List<PagesModel>();
+
+    protected override void OnParametersSet()
+    {
+        CargarPaginas();
+    }
+
+    private async Task InternalSelectedPage(PagesModel page)
+    {
+        if (page.Page == ActualPage)
+        {
+            return;
+        }
+
+        if (!page.Enabled)
+        {
+            return;
+        }
+
+        ActualPage = page.Page;
+
+        CargarPaginas();
+
+        await SelectedPage.InvokeAsync(page.Page);
+    }
+
+    private void CargarPaginas()
+    {
+        pages = new List<PagesModel>();
+        var PreviousPageEnabled = ActualPage != 1;
+        var previousPage = (ActualPage == 1) ? 1 : ActualPage - 1;
+        pages.Add(new PagesModel(previousPage, PreviousPageEnabled, "Before"));
+
+        for (int i = 1; i <= totalPages; i++)
+        {
+            if (i >= ActualPage - Radio && i <= ActualPage + Radio)
+            {
+                pages.Add(new PagesModel(i) { Active = ActualPage == i });
+            }
+        }
+
+        var NextPageEnabled = ActualPage != totalPages;
+        var NextPage = (ActualPage == totalPages) ? totalPages : ActualPage + 1;
+        pages.Add(new PagesModel(NextPage, NextPageEnabled, "Next"));
+    }
+
+    class PagesModel
+    {
+
+        public PagesModel(int page)
+            : this(page, true)
+        { }
+
+        public PagesModel(int page, bool enabled)
+            : this(page, enabled, page.ToString())
+        { }
+
+        public PagesModel(int page, bool enabled, string text)
+        {
+            Page = page;
+            Enabled = enabled;
+            Text = text;
+        }
+
+        public string Text { get; set; }
+        public int Page { get; set; }
+        public bool Enabled { get; set; } = true;
+        public bool Active { get; set; } = false;
+    }
+}

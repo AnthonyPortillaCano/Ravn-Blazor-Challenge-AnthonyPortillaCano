@@ -1,0 +1,70 @@
+﻿@page "/detailpeople/{id}"
+@inject HttpClient Http
+@inject Microsoft.AspNetCore.Components.NavigationManager  Navigation
+<h3>Detail People</h3>
+<div class="row">
+    <div class="col-md-4">
+        <EditForm Model="@peopleDetail" OnValidSubmit="@(()=> ReturnPrincipal())">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input for="Name" class="form-control" @bind="@peopleDetail.name" readonly/>
+            </div>
+            <div class="form-group">
+                <label for="Birth-Year" class="control-label">Birth Year</label>
+                <input for="Birth-Year" class="form-control" @bind="@peopleDetail.birth_year" readonly/>
+            </div>
+            <div class="form-group">
+                <label for="Height" class="control-label">Height</label>
+                <input for="Height" class="form-control" @bind="@peopleDetail.height" readonly/>
+            </div>
+            <div class="form-group">
+                <label for="Mass" class="control-label">Mass</label>
+                <input for="Mass" class="form-control" @bind="@peopleDetail.mass" readonly/>
+            </div>
+            <div class="form-group">
+                <label for="Hair-Color" class="control-label">Hair Color</label>
+                <input for="Hair-Color" class="form-control" @bind="@peopleDetail.hair_color" readonly/>
+            </div>
+
+            <div class="form-group">
+                <label for="Skin-Color" class="control-label">Skin Color</label>
+                <input for="Skin-Color" class="form-control" @bind="@peopleDetail.skin_color" readonly/>
+            </div>
+            <div class="form-group">
+                <label for="Eye-Color" class="control-label">Eye Color</label>
+                <input for="Eye-Color" class="form-control" @bind="@peopleDetail.eye_color" readonly/>
+            </div>
+            <div class="form-group">
+                <label for="Gender" class="control-label">Gender</label>
+                <input for="Gender" class="form-control" @bind="@peopleDetail.gender" readonly/>
+            </div>
+            <div class="form-group">
+                <label for="Url" class="control-label">Url</label>
+                <input for="Url" class="form-control" @bind="@peopleDetail.url" readonly/>
+            </div>
+            <div class="form-group">
+
+                <input type="submit" value="Return" @onclick="@ReturnPrincipal" class="btn btn-warning" />
+            </div>
+        </EditForm>
+
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+    PeopleResults peopleDetail = new PeopleResults();
+    protected override async Task OnInitializedAsync()
+    {
+        peopleDetail = await Http.GetJsonAsync<PeopleResults>("http://localhost:53466/people/detailPeople/" + id);
+    }
+
+    void  ReturnPrincipal()
+    {
+        Navigation.NavigateTo("/");
+    }
+}

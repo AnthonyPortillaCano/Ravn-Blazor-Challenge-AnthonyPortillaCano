@@ -1,0 +1,98 @@
+﻿@page "/"
+@inject HttpClient Http
+@using System.Text.Json
+<div class="form-inline">
+    <label class="sr-only" for="height-filter">Filter</label>
+    <input type="text" class="form-control mb-2 mr-sm-2"
+           @bind="height" placeholder="Filter by height" />
+    <button type="button" class="btn btn-primary mr-sm-2 mb-2"
+            @onclick="Filter">
+        Filter
+    </button>
+    <button type="button" class="btn btn-danger mb-2"
+            @onclick="Clean">
+        Clean
+    </button>
+
+</div>
+<PaginationPage totalPages="totalPages" ActualPage="actualPage" Radio="2"
+            SelectedPage="SelectedPage"></PaginationPage>
+
+@if (people == null)
+{
+    <p><em>Loading....</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Height</th>
+                <th>Gender</th>
+                <th>Birth Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var peopleElement in people)
+            {
+                <tr>
+                    <td>@peopleElement.name</td>
+                    <td>@peopleElement.height</td>
+                    <td>@peopleElement.gender</td>
+                    <td>@peopleElement.birth_year</td>
+                    <td>
+                        <a class="btn btn-success" href="detailpeople/@peopleElement.url.Substring(peopleElement.url.Length-2)">Details</a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<PeopleResults> people { get; set; }
+    private int actualPage = 1;
+    private int totalPages;
+    private string height = string.Empty;
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadPeople();
+    }
+
+    private async Task SelectedPage(int page)
+    {
+        actualPage = page;
+        await LoadPeople(page);
+    }
+
+    private async Task Filter()
+    {
+        actualPage = 1;
+        await LoadPeople();
+    }
+
+    private async Task Clean()
+    {
+        height = string.Empty;
+        actualPage = 1;
+        await LoadPeople();
+    }
+    async Task LoadPeople(int page = 1, int quantityRecordsShow = 10)
+    {
+        var httpResponse = await Http.GetAsync($"http://localhost:53466/people/listpeople?Page={page}&QuantityShow={quantityRecordsShow}&height={height}");
+
+        if (httpResponse.IsSuccessStatusCode)
+        {
+            var responseString = await httpResponse.Content.ReadAsStringAsync();
+            people = JsonSerializer.Deserialize<List<PeopleResults>>(responseString,
+            new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+            totalPages = Convert.ToInt32(people.FirstOrDefault().totalPages);
+        }
+        else
+        {
+            Console.WriteLine("error");
+        }
+    }
+}

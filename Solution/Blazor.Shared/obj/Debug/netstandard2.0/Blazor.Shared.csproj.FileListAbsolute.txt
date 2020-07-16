@@ -1,0 +1,9 @@
+E:\NetCore3.1Cursos\EntrevistaDemoBlazor\Solution\Blazor.Shared\bin\Debug\netstandard2.0\Blazor.Shared.deps.json
+E:\NetCore3.1Cursos\EntrevistaDemoBlazor\Solution\Blazor.Shared\bin\Debug\netstandard2.0\Blazor.Shared.dll
+E:\NetCore3.1Cursos\EntrevistaDemoBlazor\Solution\Blazor.Shared\bin\Debug\netstandard2.0\Blazor.Shared.pdb
+E:\NetCore3.1Cursos\EntrevistaDemoBlazor\Solution\Blazor.Shared\obj\Debug\netstandard2.0\Blazor.Shared.csprojAssemblyReference.cache
+E:\NetCore3.1Cursos\EntrevistaDemoBlazor\Solution\Blazor.Shared\obj\Debug\netstandard2.0\Blazor.Shared.AssemblyInfoInputs.cache
+E:\NetCore3.1Cursos\EntrevistaDemoBlazor\Solution\Blazor.Shared\obj\Debug\netstandard2.0\Blazor.Shared.AssemblyInfo.cs
+E:\NetCore3.1Cursos\EntrevistaDemoBlazor\Solution\Blazor.Shared\obj\Debug\netstandard2.0\Blazor.Shared.csproj.CoreCompileInputs.cache
+E:\NetCore3.1Cursos\EntrevistaDemoBlazor\Solution\Blazor.Shared\obj\Debug\netstandard2.0\Blazor.Shared.dll
+E:\NetCore3.1Cursos\EntrevistaDemoBlazor\Solution\Blazor.Shared\obj\Debug\netstandard2.0\Blazor.Shared.pdb
